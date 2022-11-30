@@ -2,7 +2,7 @@ pipeline{
 
 	agent any
 
-	environment {
+        environment {
 		DOCKERHUB_CREDENTIALS=credentials('docker-id')
 	}
 
@@ -11,7 +11,7 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t bharathirajatut/app:latest .'
+				sh 'docker build -t bharathirajatut/nodeapp:latest .'
 			}
 		}
 
@@ -25,7 +25,7 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				sh 'docker push bharathirajatut/app:latest'
+				sh 'docker push bharathirajatut/nodeapp:latest'
 			}
 		}
 	}

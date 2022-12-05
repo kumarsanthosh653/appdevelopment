@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-k8s-Deployment 
+  labels:
+    app: nodejs-k8s
+  annotations:
+    fluxcd.io/automated: "true"
+  
+spec:
+  selector:
+    matchLabels:
+        app: nodejs-k8s
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nodejs-k8s
+    spec:
+      containers:
+        - name: nodejs-k8s
+          image: 696757124794.dkr.ecr.ap-south-1.amazonaws.com/san:latest
+          ports:
+            - containerPort: 8080
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: nodejs-k8ssvc
+spec:
+  selector:
+    app: nodejst-k8s
+  type: LoadBalancer
+  ports:
+    - protocol: "TCP"
+      port: 80
+      targetPort: 8080
